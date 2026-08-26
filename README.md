@@ -2,7 +2,7 @@
 
 A Machine Learning regression project that predicts laptop prices based on hardware specifications, brand, display features, storage, processor, graphics, and other relevant characteristics.
 
-> 🚧 **Project Status:** Model Selection Completed | Hyperparameter Tuning & Deployment — Upcoming
+> 🚧 **Project Status:** Frontend Development and Model Integration — Upcoming
 
 ---
 
