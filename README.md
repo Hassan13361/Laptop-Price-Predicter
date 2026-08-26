@@ -1,95 +1,18 @@
 # 💻 Laptop Price Prediction
 
-A Machine Learning project focused on predicting laptop prices based on their hardware specifications, brand, display characteristics, storage, processor, graphics, and other relevant features.
+A Machine Learning regression project that predicts laptop prices based on hardware specifications, brand, display features, storage, processor, graphics, and other relevant characteristics.
 
-> 🚧 **Project Status:** In Progress
-> The project is currently in the **EDA and Feature Engineering** phase. Model training, evaluation, and deployment will be added in future stages.
+> 🚧 **Project Status:** Model Selection Completed | Hyperparameter Tuning & Deployment — Upcoming
 
 ---
 
 ## 📌 Project Overview
 
-Laptop prices vary significantly depending on specifications such as RAM, processor, GPU, storage, display quality, and laptop category.
+Laptop prices vary significantly depending on specifications such as **RAM, CPU, GPU, storage, display quality, laptop type, and brand**.
 
-The goal of this project is to build a **regression-based Machine Learning model** that can learn from historical laptop specifications and predict the expected price of a laptop.
+The objective of this project is to build a regression model capable of predicting the price of a laptop from its specifications.
 
-The project is being developed step-by-step, starting from raw data exploration and gradually moving toward preprocessing, model development, evaluation, and deployment.
-
----
-
-## 📊 Dataset
-
-The dataset contains **1,303 laptop records** with information related to:
-
-* Company / Brand
-* Laptop Type
-* Screen Resolution
-* CPU
-* RAM
-* Memory / Storage
-* GPU
-* Operating System
-* Screen Size
-* Weight
-* Price
-
-The dataset initially contained a mixture of numerical and text-based features, requiring preprocessing and feature engineering before Machine Learning could be applied.
-
----
-
-## 🔍 Exploratory Data Analysis
-
-During EDA, the dataset was analyzed to understand its structure, distributions, relationships, and potential issues.
-
-### Key EDA Steps
-
-* Examined dataset shape and feature types
-* Checked for missing values
-* Identified unnecessary columns
-* Analyzed categorical feature distributions
-* Studied numerical feature distributions
-* Investigated the distribution of laptop prices
-* Analyzed relationships between features and price
-* Identified potential outliers
-* Examined correlations between numerical variables
-
-### Key Findings
-
-* The dataset contains **no missing values**.
-* `Unnamed: 0` was identified as an unnecessary index column.
-* **8GB RAM** is the most common RAM configuration.
-* Notebook laptops represent the largest laptop category.
-* Dell, Lenovo, and HP are among the most frequently occurring brands.
-* Laptop prices are **right-skewed**, with relatively expensive laptops forming the upper end of the distribution.
-* RAM has a strong positive relationship with laptop price.
-* Screen size alone has a relatively weak relationship with price.
-
----
-
-## ⚙️ Feature Engineering
-
-The original dataset contained several features in text/string format. These were transformed into more meaningful features suitable for Machine Learning.
-
-### Transformations Performed
-
-* Extracted numerical values from **RAM**
-* Converted **Weight** into a numerical value
-* Simplified **Operating System** categories
-* Created binary `TouchScreen` feature
-* Created binary `IPS` feature
-* Engineered **PPI (Pixels Per Inch)** from screen resolution and screen size
-* Extracted **CPU Brand**
-* Separated storage into **HDD** and **SSD** capacities
-* Extracted **GPU Brand**
-* Removed unnecessary information from complex text-based specifications
-
-These transformations reduced feature complexity while preserving information that can contribute to laptop price prediction.
-
----
-
-## 🧠 Machine Learning Pipeline
-
-The complete Machine Learning pipeline will be developed progressively:
+The project follows an end-to-end Machine Learning workflow:
 
 ```text
 Raw Dataset
@@ -100,72 +23,190 @@ Exploratory Data Analysis
      ↓
 Feature Engineering
      ↓
-Feature Encoding
-     ↓
-Train-Test Split
+Data Preprocessing
      ↓
 Model Training
      ↓
-Model Evaluation
+Model Comparison
+     ↓
+Best Model Selection
      ↓
 Hyperparameter Tuning
-     ↓
-Final Model
      ↓
 Deployment
 ```
 
 ---
 
-## 🚧 Future Work
+## 📊 Dataset
 
-The project is intentionally being developed in stages. Future improvements will include:
+The dataset contains **1,303 laptop records** with information about:
 
-### 1. Data Preprocessing
+* Company
+* Laptop Type
+* Screen Resolution
+* CPU
+* RAM
+* Memory
+* GPU
+* Operating System
+* Screen Size
+* Weight
+* Price
 
-* Encode categorical variables
-* Scale numerical features where required
-* Prepare the final feature matrix
+The original dataset contained a mixture of numerical and text-based features, so preprocessing and feature engineering were required before model training.
 
-### 2. Model Development
+---
 
-Different regression algorithms will be experimented with, such as:
+# 🔍 Exploratory Data Analysis
+
+EDA was performed to understand the structure and characteristics of the dataset before building the models.
+
+### EDA Performed
+
+* Examined dataset shape and feature types
+* Checked for missing values
+* Identified unnecessary columns
+* Analyzed categorical feature distributions
+* Studied numerical feature distributions
+* Examined the distribution of laptop prices
+* Investigated relationships between features and price
+* Analyzed correlations between numerical variables
+* Identified potential outliers
+
+### Key Findings
+
+* The dataset contains **1,303 laptop records**.
+* No significant missing-value problem was found.
+* `Unnamed: 0` was identified as an unnecessary index column.
+* **8GB RAM** is the most common RAM configuration.
+* Notebook laptops represent the largest category.
+* Dell, Lenovo, and HP are among the most frequently represented brands.
+* The `Price` variable is **right-skewed**, with some high-priced laptops.
+* RAM showed a strong positive relationship with laptop price.
+* Screen size alone showed a relatively weak relationship with price.
+
+EDA helped identify which characteristics were likely to be useful for predicting laptop prices and guided the feature engineering process.
+
+---
+
+# ⚙️ Feature Engineering
+
+The original dataset contained several features in raw text/string form. These were transformed into structured features that could be effectively used by Machine Learning algorithms.
+
+### Transformations Performed
+
+* Extracted numerical values from **RAM**
+* Converted **Weight** into a numerical value
+* Simplified **Operating System** categories
+* Converted **TouchScreen** into a binary feature
+* Converted **IPS** into a binary feature
+* Engineered **PPI (Pixels Per Inch)** using screen resolution and screen size
+* Extracted **CPU Brand**
+* Separated combined storage into **HDD** and **SSD** capacities
+* Extracted **GPU Brand**
+* Removed unnecessary information from complex specification strings
+
+### Why Feature Engineering?
+
+Feature engineering helped transform complicated laptop specifications into meaningful numerical and categorical variables.
+
+For example:
+
+```text
+8GB RAM → 8
+1TB HDD → 1000 GB HDD
+256GB SSD → 256 GB SSD
+Touchscreen → 1 / 0
+IPS Display → 1 / 0
+```
+
+The resulting dataset became significantly more suitable for Machine Learning models.
+
+---
+
+# 🤖 Model Development & Selection
+
+After preprocessing the dataset, **10 different regression algorithms** were trained and evaluated to determine which model performed best for this problem.
+
+### Models Tested
 
 * Linear Regression
-* Ridge / Lasso Regression
+* Lasso Regression
+* Ridge Regression
+* KNN Regressor
 * Decision Tree Regressor
 * Random Forest Regressor
-* Gradient Boosting
-* XGBoost / other boosting techniques
+* AdaBoost Regressor
+* Gradient Boosting Regressor
+* Extra Trees Regressor
+* XGBoost Regressor
+* SVR
 
-### 3. Model Evaluation
+> The models were compared using **Mean Absolute Error (MAE)** and **R² Score**.
 
-Models will be compared using appropriate regression metrics, including:
+---
+
+## 📈 Model Comparison
+
+The models showed noticeable differences in performance.
+
+Based on the evaluation results:
+
+* **Random Forest Regressor** achieved the best overall performance.
+* Extra Trees and XGBoost also performed strongly.
+* KNN and boosting-based models produced competitive results.
+* Linear, Ridge, and Lasso Regression performed reasonably well but were less effective at capturing the complex relationships in the dataset.
+* **SVR performed significantly worse** than the other tested models.
+
+### 🏆 Best Model: Random Forest Regressor
+
+The **Random Forest Regressor** was selected as the current best-performing model because it provided the strongest combination of:
+
+* High **R² Score**
+* Low **Mean Absolute Error**
+* Ability to capture **non-linear relationships**
+* Robustness to different feature interactions
+
+The results suggest that laptop pricing depends on complex interactions between specifications such as RAM, CPU, GPU, storage, display characteristics, and laptop category—relationships that tree-based ensemble models can capture effectively.
+
+---
+
+# 🧠 Why Random Forest?
+
+Random Forest is particularly suitable for this dataset because laptop prices are unlikely to follow a simple linear relationship.
+
+For example:
+
+```text
+RAM + CPU + GPU + SSD + Display
+              ↓
+        Price Relationship
+```
+
+The effect of one feature can depend on the values of other features.
+
+Random Forest can capture these **non-linear relationships and feature interactions** by combining predictions from multiple decision trees.
+
+---
+
+# 🚧 Future Work
+
+### Model Evaluation
+
+Further evaluation will include:
 
 * MAE
 * MSE
 * RMSE
 * R² Score
-
-### 4. Hyperparameter Tuning
-
-The best-performing models will be optimized using techniques such as:
-
-* Grid Search
-* Random Search
-* Cross-Validation
-
-### 5. Model Selection
-
-The final model will be selected based on its performance on unseen data while considering both accuracy and generalization.
-
-### 6. Deployment
-
-The trained model will eventually be integrated into a user-friendly application where users can enter laptop specifications and receive an estimated price.
+* Cross-validation performance
+* Actual vs Predicted price analysis
+* Residual/error analysis
 
 ---
 
-## 🛠️ Technologies Used
+# 🛠️ Technologies Used
 
 * **Python**
 * **Pandas**
@@ -173,16 +214,15 @@ The trained model will eventually be integrated into a user-friendly application
 * **Matplotlib**
 * **Seaborn**
 * **Scikit-learn**
+* **XGBoost**
 * **Jupyter Notebook**
 * **Git & GitHub**
 
-Additional libraries and tools may be added as the project progresses.
-
 ---
 
-## 📁 Project Structure
+# 📁 Project Structure
 
-The structure may evolve as new stages are completed:
+The project structure may continue to evolve as new stages are added.
 
 ```text
 Laptop-Price-Prediction/
@@ -191,9 +231,9 @@ Laptop-Price-Prediction/
 │   └── laptop_data.csv
 │
 ├── notebooks/
-│   ├── EDA.ipynb
-│   ├── Feature_Engineering.ipynb
-│   └── Model_Training.ipynb
+│   ├── Laptop-Price-Predictor.ipynb
+│   
+│    
 │
 ├── models/
 │   └── ...
@@ -201,32 +241,33 @@ Laptop-Price-Prediction/
 ├── app/
 │   └── ...
 │
-├── requirements.txt
+|
 ├── README.md
 └── .gitignore
 ```
 
 ---
 
-## 🎯 Objective
+# 📈 Project Progress
 
-The ultimate objective is to develop a reliable Machine Learning solution capable of estimating laptop prices from their specifications and to demonstrate the complete workflow of a real-world regression project — **from raw data to deployment**.
+* [x] Dataset Collection
+* [x] Data Cleaning
+* [x] Exploratory Data Analysis
+* [x] Feature Engineering
+* [x] Data Preprocessing
+* [x] Regression Model Training
+* [x] Model Comparison
+* [x] Best Model Selection
+* [x] Hyperparameter Tuning
+* [x] Final Model
 
 ---
 
-## 📈 Project Progress
+# 🎯 Final Objective
 
-* [x] Dataset collection
-* [x] Initial data exploration
-* [x] Exploratory Data Analysis
-* [x] Feature Engineering
-* [x] Categorical Encoding
-* [ ] Train-Test Split
-* [ ] Model Training
-* [ ] Model Evaluation
-* [ ] Hyperparameter Tuning
-* [ ] Final Model Selection
-* [ ] Deployment
+The ultimate goal of this project is to develop a reliable **Laptop Price Prediction system** capable of estimating laptop prices from their specifications while demonstrating a complete real-world Machine Learning workflow:
+
+**Data → EDA → Feature Engineering → Modeling → Evaluation → Optimization**
 
 ---
 
@@ -234,4 +275,4 @@ The ultimate objective is to develop a reliable Machine Learning solution capabl
 
 **Hassan Ibrahim**
 
-This project is being developed as part of my Machine Learning learning journey, with the aim of applying ML concepts to practical, end-to-end projects.
+This project is part of my Machine Learning journey, focusing on applying theoretical concepts to practical, end-to-end Machine Learning projects.
